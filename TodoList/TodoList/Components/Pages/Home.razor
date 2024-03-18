@@ -1,0 +1,60 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Identity
+@using TodoList.Code
+@using TodoList.Components.Account
+@using TodoList.Data
+@using TodoList.Model
+@* @attribute [Microsoft.AspNetCore.Authorization.Authorize(Policy = "AuthUser")] *@
+@* @attribute [Microsoft.AspNetCore.Authorization.Authorize(Roles = "Admin")] *@
+
+@inject RoleHandler _handler
+@inject IServiceProvider _ServiceProvider
+
+@inject TodoContext context
+@inject UserManager<ApplicationUser> UserManager
+@inject IdentityUserAccessor UserAccessor
+
+<PageTitle>Home</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+
+        <h1>Hello, world!</h1>
+
+        Welcome to your new app.
+        @if (username != null)
+        {
+            @username
+        }
+        else
+        {
+            <p>User values are not available.</p>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <h1>Not Authorized</h1>
+        <p>login To View Component</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code{
+    private ApplicationUser user = default!;
+    private string? username;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+    protected override async Task OnInitializedAsync()
+    {
+        user = await UserAccessor.GetRequiredUserAsync(HttpContext);
+        username = await UserManager.GetUserNameAsync(user);
+        //await _handler.createRole("nicolajs2000@gmail.com", "Admin", _ServiceProvider);
+    }
+
+    public async Task<Cpr> CprCheck(){
+        return null;
+    }
+
+    public async Task<ToDo> createTodo(){
+        return null;
+    }
+}
