@@ -27,8 +27,9 @@ public partial class TodoContext : DbContext
     {
         modelBuilder.Entity<Cpr>(entity =>
         {
+            entity.HasKey(e => e.Id);
+
             entity
-                .HasNoKey()
                 .ToTable("CPR");
 
             entity.Property(e => e.Cpr1)

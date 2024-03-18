@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.SqlServer.Server;
+﻿using Microsoft.AspNetCore.Identity;
 using TodoList.Data;
 
 namespace TodoList.Code

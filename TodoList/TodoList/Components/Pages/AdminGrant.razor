@@ -1,0 +1,13 @@
+﻿@page "/AdminGrant"
+
+@attribute [Microsoft.AspNetCore.Authorization.Authorize(Roles = "Admin")]
+
+<h3>AdminGrant</h3>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+
+        //await _handler.createRole("nicolajs2000@gmail.com", "Admin", _ServiceProvider);
+    }
+}

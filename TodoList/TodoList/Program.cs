@@ -20,7 +20,10 @@ builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 builder.Services.AddScoped<LookupItem>();
 
-builder.Services.AddSingleton<RoleHandler>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<RoleHandler>();
+builder.Services.AddScoped<CPRServices>();
+builder.Services.AddScoped<CreateToDo>();
 
 
 builder.Services.AddAuthentication(options =>
@@ -66,7 +69,6 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireDigit = true;
-    options.Password.RequireNonAlphanumeric = true;
 });
 
 var app = builder.Build();

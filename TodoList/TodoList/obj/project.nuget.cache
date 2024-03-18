@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "W3uJuTTKyRKKoY1cmMJgsc4tzBuV6rHGXT7aXXP7S4CjQXBgHa7c9Pv9i2DOs3ro+qGMcKg7JM/QHycaVz+XbQ==",
+  "dgSpecHash": "JW1ux9ghpOcikEF1Rqxc7tVRrpgsPHPHlxxXq/N3Q7rqnIf36KUvuo+zJ4oafRO4zdhD8LxFjG6wZttXyFaztQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nicol\\OneDrive\\Dokumenter\\GitHub\\ServerSideProgramming\\TodoList\\TodoList\\TodoList.csproj",
+  "projectFilePath": "C:\\Users\\nicol\\OneDrive\\Desktop\\TodoList\\ServerSideProgramming\\TodoList\\TodoList\\TodoList.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nicol\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\nicol\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
