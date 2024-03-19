@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Security.Authentication;
 using TodoList.Code;
 using TodoList.Components;
 using TodoList.Components.Account;
@@ -24,6 +25,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<RoleHandler>();
 builder.Services.AddScoped<CPRServices>();
 builder.Services.AddScoped<CreateToDo>();
+builder.Services.AddScoped<HashContent>();
 
 
 builder.Services.AddAuthentication(options =>
@@ -70,6 +72,22 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireLowercase = true;
     options.Password.RequireDigit = true;
 });
+
+//string userfolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+//userfolder = Path.Combine(userfolder, ".aspnet", "https", "CertifikateNavn.pfx");
+//builder.Configuration.GetSection("Kestrel:Endpoints:Https:Certificate:Path").Value = userfolder;
+
+//string certPW = builder.Configuration.GetValue<string>("kestrelCertificatePassword");
+//builder.Configuration.GetSection("Kestrel:Endpoints:Https:Certificate:Password").Value = certPW;
+
+//builder.WebHost.UseKestrel((context, serveroptions) =>
+//{
+//    serveroptions.Configure(context.Configuration.GetSection("Kestrel"))
+//    .Endpoint("HTTPS", listenOptions =>
+//    {
+//        listenOptions.HttpsOptions.SslProtocols = SslProtocols.Tls13;
+//    });
+//});
 
 var app = builder.Build();
 

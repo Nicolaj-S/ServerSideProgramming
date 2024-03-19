@@ -19,6 +19,7 @@ namespace TodoList.Code
             var exists = await CheckEmailAsync(cprRecord.User);
             if (!exists)
             {
+                cprRecord.Cpr1 = HashContent.hash(cprRecord.Cpr1);
                 _context.Cprs.Add(cprRecord);
                 return await Save();
             }
@@ -32,7 +33,8 @@ namespace TodoList.Code
 
         public async Task<bool> CheckAccountAsync(string email, string Cpr)
         {
-            return await _context.Cprs.AnyAsync(c => c.Cpr1 == Cpr && c.User == email);
+            var hashedCpr = HashContent.hash(Cpr);
+            return await _context.Cprs.AnyAsync(c => c.Cpr1 == hashedCpr && c.User == email);
         }
 
         public async Task<bool> Save()

@@ -24,7 +24,6 @@
 
             <p>Welcome to your new app.</p>
             <p>@context.User.Identity.Name</p>
-            <p>@context.User.Claims.FirstOrDefault().Value</p>
             <input @bind="CprNummer" type="text" placeholder="Enter CPR Number" />
             <button @onclick="create">Submit</button>
             @if (!string.IsNullOrEmpty(FeedbackMessage))
@@ -46,7 +45,7 @@
 
 @code{
     public Cpr item = new Cpr();
-    public string CprNummer;
+    public string CprNummer = "";
     public string FeedbackMessage = "";
     public bool exist;
 
@@ -72,7 +71,7 @@
         if (result)
         {
             FeedbackMessage = "CPR record created successfully.";
-            CprNummer = ""; // Optionally reset the input field
+            CprNummer = "";
             return exist = true;
         }
         else
@@ -87,10 +86,5 @@
             FeedbackMessage = "Wrong CPR Number";
             return exist = false;
         }
-    }
-
-    public async Task get()
-    {
-
     }
 }
