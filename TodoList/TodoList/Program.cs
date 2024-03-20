@@ -19,13 +19,14 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
-builder.Services.AddScoped<LookupItem>();
+builder.Services.AddScoped<UserWithRole>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<RoleHandler>();
 builder.Services.AddScoped<CPRServices>();
-builder.Services.AddScoped<CreateToDo>();
+builder.Services.AddScoped<ToDoServices>();
 builder.Services.AddScoped<HashContent>();
+builder.Services.AddScoped<ToDoServices>();
 
 
 builder.Services.AddAuthentication(options =>
@@ -74,7 +75,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 string userfolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-userfolder = Path.Combine(userfolder, ".aspnet", "https", "CertifikateNavn2.pfx");
+userfolder = Path.Combine(userfolder, ".aspnet", "https", "CertifikateNavn.pfx");
 builder.Configuration.GetSection("Kestrel:Endpoints:Https:Certificate:Path").Value = userfolder;
 
 string certPW = builder.Configuration.GetValue<string>("kestrelCertificatePassword");

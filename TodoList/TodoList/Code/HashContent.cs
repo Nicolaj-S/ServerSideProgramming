@@ -7,7 +7,20 @@ namespace TodoList.Code
 {
     public class HashContent
     {
-        public static hash(string content, Type type)
+        public static object SequentialHash(string content, string Type)
+        {
+            string hash1Result = hash(content);
+            string hash2Result = hash2(hash1Result);
+            string hash3Result = hash3(hash2Result);
+            string hash4Result = hash4(hash3Result);
+
+
+            if (Type == "string")
+                return hash4Result;
+            else
+                return Encoding.ASCII.GetBytes(hash4Result);
+        }
+        public static string hash(string content)
         {
             byte[] bytes = SHA512.HashData(Encoding.ASCII.GetBytes(content));
 
@@ -16,10 +29,8 @@ namespace TodoList.Code
             {
                 builder.Append(bytes[i].ToString("x2"));
             }
-            if (type == string)
-                return builder.ToString();
-            else
-                return builder;
+
+            return builder.ToString();
         }
 
         public static string hash2(string content)
@@ -60,11 +71,17 @@ namespace TodoList.Code
             byte[] bytes = Encoding.ASCII.GetBytes(content);
             byte[] salt = Encoding.ASCII.GetBytes("saltData");
 
-            var hashtype = new HashAlgorithmName("SHA512");
+            var hashType = new HashAlgorithmName("SHA512");
 
-            var newContent = Rfc2898DeriveBytes.Pbkdf2(bytes, salt, 10, hashtype, 32);
+            byte[] newContent = Rfc2898DeriveBytes.Pbkdf2(bytes, salt, 10, hashType, 32);
 
-            return newContent.ToString();
+            StringBuilder builder = new StringBuilder();
+            foreach (byte b in newContent)
+            {
+                builder.Append(b.ToString("x2"));
+            }
+
+            return builder.ToString();
         }
 
 

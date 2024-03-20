@@ -11,7 +11,7 @@
 @inject ILogger<Login> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
-@inject LookupItem LookupItem;
+@inject UserWithRole LookupItem;
 
 <PageTitle>Log in</PageTitle>
 
@@ -60,7 +60,7 @@
     [SupplyParameterFromQuery]
     private string? ReturnUrl { get; set; }
 
-    public LookupItem lookupEmail = new LookupItem();
+    public UserWithRole lookupEmail = new UserWithRole();
 
     protected override async Task OnInitializedAsync()
     {

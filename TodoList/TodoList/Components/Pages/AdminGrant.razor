@@ -1,13 +1,137 @@
 ﻿@page "/AdminGrant"
+@using Microsoft.AspNetCore.Identity
+@using TodoList.Code
+@using TodoList.Data
+@using TodoList.Model
+
+@inject CPRServices cprService;
+@inject RoleHandler roleHandler;
+@inject IServiceProvider _ServiceProvider
 
 @attribute [Microsoft.AspNetCore.Authorization.Authorize(Roles = "Admin")]
 
 <h3>AdminGrant</h3>
 
+<h4>Create New Role</h4>
+<EditForm Model="@newRole" OnValidSubmit="HandleCreateRole">
+    <div class="form-group">
+        <label for="roleName">Role Name:</label>
+        <InputText id="roleName" class="form-control" @bind-Value="newRole.RoleName" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create Role</button>
+</EditForm>
+
+
+
+@if (combinedUsers != null && combinedUsers.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>add role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in combinedUsers)
+            {
+                <tr>
+                    <td>@user.Email</td>
+                    <td>
+                        @foreach (var role in user.Roles)
+                        {
+                            <button class="btn btn-link p-0" @onclick="() => HandleRemoveRole(user.Email, role)">
+                                @role <span class="oi oi-x"></span>
+                            </button>
+                        }
+                    </td>
+                    <td>
+                        <select @onchange="(ChangeEventArgs e) => HandleAssignRole(user.Email, e.Value.ToString())">
+                            <option value="">Assign Role</option>
+                            @foreach (var role in roles)
+                            {
+                                <option value="@role.Name">@role.Name</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+
+}
+else
+{
+    <p>No users found.</p>
+}
 @code {
+    private List<Cpr> users = new();
+    private List<IdentityRole> roles = new();
+    private List<UserWithRole> combinedUsers = new List<UserWithRole>();
+    public class RoleFormModel
+    {
+        public string RoleName { get; set; }
+    }
+
+    private RoleFormModel newRole = new RoleFormModel();
+
+
     protected override async Task OnInitializedAsync()
     {
+        await getUsers();
+    }
 
-        //await _handler.createRole("nicolajs2000@gmail.com", "Admin", _ServiceProvider);
+    protected async Task getUsers()
+    {
+        combinedUsers = new List<UserWithRole>();
+        users = await cprService.GetAllUserWithCpr();
+        roles = await cprService.GetRoles();
+        var userRoleMappings = await cprService.GetUserRoleMapping();
+        foreach (var user in users)
+        {
+            var roleIdsForUser = userRoleMappings.Where(mapping => mapping.UserId == user.Id).Select(mapping => mapping.RoleId).ToList();
+            var userRoles = roles.Where(role => roleIdsForUser.Contains(role.Id)).Select(role => role.Name).ToList();
+            combinedUsers.Add(new UserWithRole
+                {
+                    UserId = user.Id,
+                    Email = user.User,
+                    Roles = userRoles
+                });
+        }
+    }
+
+    private async Task HandleCreateRole()
+    {
+        if (!string.IsNullOrEmpty(newRole.RoleName))
+        {
+            var roleExists = await roleHandler.RoleExists(newRole.RoleName);
+            if (!roleExists)
+            {
+                await roleHandler.CreateRole(newRole.RoleName);
+                await getUsers();
+                roles = await cprService.GetRoles();
+            }
+            newRole.RoleName = string.Empty; // Reset the input
+        }
+    }
+
+    private async Task HandleAssignRole(string userEmail, string roleName)
+    {
+        if (!string.IsNullOrEmpty(userEmail) && !string.IsNullOrEmpty(roleName))
+        {
+            await roleHandler.AddRoleToUser(userEmail, roleName);
+            await getUsers();
+        }
+    }
+
+    private async Task HandleRemoveRole(string userEmail, string roleName)
+    {
+        if (!string.IsNullOrEmpty(userEmail) && !string.IsNullOrEmpty(roleName))
+        {
+            bool success = await roleHandler.RemoveRoleFromUser(userEmail, roleName);
+            await getUsers();
+        }
     }
 }

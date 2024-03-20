@@ -1,23 +1,23 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\nicol\\OneDrive\\Dokumenter\\GitHub\\ServerSideProgramming\\TodoList\\TodoList\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\TodoList.bundle.scp.css",
+      "Id": "C:\\Users\\nicol\\OneDrive\\Desktop\\TodoList\\ServerSideProgramming\\TodoList\\TodoList\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\TodoList.bundle.scp.css",
       "PackagePath": "staticwebassets\\TodoList.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\nicol\\OneDrive\\Dokumenter\\GitHub\\ServerSideProgramming\\TodoList\\TodoList\\wwwroot\\app.css",
+      "Id": "C:\\Users\\nicol\\OneDrive\\Desktop\\TodoList\\ServerSideProgramming\\TodoList\\TodoList\\wwwroot\\app.css",
       "PackagePath": "staticwebassets\\app.css"
     },
     {
-      "Id": "C:\\Users\\nicol\\OneDrive\\Dokumenter\\GitHub\\ServerSideProgramming\\TodoList\\TodoList\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Id": "C:\\Users\\nicol\\OneDrive\\Desktop\\TodoList\\ServerSideProgramming\\TodoList\\TodoList\\wwwroot\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\nicol\\OneDrive\\Dokumenter\\GitHub\\ServerSideProgramming\\TodoList\\TodoList\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\nicol\\OneDrive\\Desktop\\TodoList\\ServerSideProgramming\\TodoList\\TodoList\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\nicol\\OneDrive\\Dokumenter\\GitHub\\ServerSideProgramming\\TodoList\\TodoList\\wwwroot\\favicon.png",
+      "Id": "C:\\Users\\nicol\\OneDrive\\Desktop\\TodoList\\ServerSideProgramming\\TodoList\\TodoList\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {

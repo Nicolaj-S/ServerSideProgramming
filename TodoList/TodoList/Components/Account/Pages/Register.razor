@@ -5,6 +5,7 @@
 @using System.Text.Encodings.Web
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
+@using TodoList.Code
 @using TodoList.Data
 
 @inject UserManager<ApplicationUser> UserManager
@@ -14,6 +15,7 @@
 @inject ILogger<Register> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
+@inject RoleHandler roleHandler;
 
 <PageTitle>Register</PageTitle>
 
@@ -69,7 +71,7 @@
     {
         var user = CreateUser();
 
-        //user.TwoFactorEnabled = true;
+       //user.TwoFactorEnabled = true;
 
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
@@ -83,6 +85,7 @@
         }
 
         Logger.LogInformation("User created a new account with password.");
+        await roleHandler.addUserToDefaultRole(Input.Email);
 
         var userId = await UserManager.GetUserIdAsync(user);
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
