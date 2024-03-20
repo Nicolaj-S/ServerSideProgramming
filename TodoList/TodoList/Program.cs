@@ -73,12 +73,12 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireDigit = true;
 });
 
-//string userfolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-//userfolder = Path.Combine(userfolder, ".aspnet", "https", "CertifikateNavn.pfx");
-//builder.Configuration.GetSection("Kestrel:Endpoints:Https:Certificate:Path").Value = userfolder;
+string userfolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+userfolder = Path.Combine(userfolder, ".aspnet", "https", "CertifikateNavn2.pfx");
+builder.Configuration.GetSection("Kestrel:Endpoints:Https:Certificate:Path").Value = userfolder;
 
-//string certPW = builder.Configuration.GetValue<string>("kestrelCertificatePassword");
-//builder.Configuration.GetSection("Kestrel:Endpoints:Https:Certificate:Password").Value = certPW;
+string certPW = builder.Configuration.GetValue<string>("kestrelCertificatePassword");
+builder.Configuration.GetSection("Kestrel:Endpoints:Https:Certificate:Password").Value = certPW;
 
 //builder.WebHost.UseKestrel((context, serveroptions) =>
 //{

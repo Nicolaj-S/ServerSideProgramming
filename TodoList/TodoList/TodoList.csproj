@@ -7,32 +7,18 @@
 		<UserSecretsId>aspnet-TodoList-a498764c-c5a9-44b0-a837-90bd9128521d</UserSecretsId>
 		<RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
 		<EnableSdkContainerDebugging>True</EnableSdkContainerDebugging>
-		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-		<ContainerRepository>h5Test</ContainerRepository>
-		<ContainerImageTag>v1</ContainerImageTag>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.3" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.7" />
+		<PackageReference Include="SkiaSharp.QrCode" Version="0.7.0" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<ContainerPort Include="443" Type="tcp"/>
-		<ContainerEnvironmentVariable Include="ASPNETCORE_HTTPS_PORTS">
-			<Value>8081</Value>
-		</ContainerEnvironmentVariable>
-		<ContainerEnvironmentVariable Include="ASPNETCORE_URLS">
-			<Value>https://+;http://+</Value>
-		</ContainerEnvironmentVariable>
-		<ContainerEnvironmentVariable Include="ASPNETCORE_Kestrel__Certificates__Default__Path">
-			<Value>/app/https/CertifikateNavn.pfx</Value>
-		</ContainerEnvironmentVariable>
-		<ContainerEnvironmentVariable Include="ASPNETCORE_Kestrel__Certificates__Default__Password">
-			<Value>MyPassword</Value>
-		</ContainerEnvironmentVariable>
-	</ItemGroup>
 
 </Project>
