@@ -449,3 +449,4 @@ C:\Users\nicol\OneDrive\Desktop\TodoList\ServerSideProgramming\TodoList\TodoList
 C:\Users\nicol\OneDrive\Desktop\TodoList\ServerSideProgramming\TodoList\TodoList\obj\Debug\net8.0\TodoList.pdb
 C:\Users\nicol\OneDrive\Desktop\TodoList\ServerSideProgramming\TodoList\TodoList\obj\Debug\net8.0\TodoList.genruntimeconfig.cache
 C:\Users\nicol\OneDrive\Desktop\TodoList\ServerSideProgramming\TodoList\TodoList\obj\Debug\net8.0\ref\TodoList.dll
+C:\Users\nicol\OneDrive\Dokumenter\GitHub\ServerSideProgramming\TodoList\TodoList\bin\Debug\net8.0\BCrypt.Net-Next.dll

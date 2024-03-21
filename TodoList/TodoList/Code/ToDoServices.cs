@@ -15,9 +15,9 @@ namespace TodoList.Code
             return false;
         }
 
-        public async Task<List<ToDo>> GetItems()
+        public async Task<List<ToDo>> GetItems(int userId)
         {
-            return await context.ToDos.ToListAsync();
+            return await context.ToDos.Where(item => item.UserId == userId).ToListAsync();
         }
 
         public async Task<bool> DeleteItem(int itemId)

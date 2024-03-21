@@ -71,7 +71,7 @@
     {
         var user = CreateUser();
 
-       //user.TwoFactorEnabled = true;
+        user.TwoFactorEnabled = true;
 
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
@@ -86,6 +86,8 @@
 
         Logger.LogInformation("User created a new account with password.");
         await roleHandler.addUserToDefaultRole(Input.Email);
+
+        var authToken = UserManager.GenerateTwoFactorTokenAsync(user, TokenOptions.DefaultEmailProvider).Result;
 
         var userId = await UserManager.GetUserIdAsync(user);
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);

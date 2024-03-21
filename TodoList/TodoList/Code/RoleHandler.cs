@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TodoList.Data;
 using TodoList.Model;
 
@@ -58,10 +60,30 @@ namespace TodoList.Code
             var userRoles = await _userManager.GetRolesAsync(user);
             if (userRoles.Count == 0)
             {
-                var addRoleResult = await _userManager.AddToRoleAsync(user, "User");
+                IdentityResult addRoleResult;
+
+                bool result = await IsRolesNull();
+                if (result)
+                    addRoleResult = await _userManager.AddToRoleAsync(user, "Admin");
+                else
+                    addRoleResult = await _userManager.AddToRoleAsync(user, "User");
+
                 return addRoleResult.Succeeded;
             }
             return true;
+        }
+
+        public async Task<bool> IsRolesNull()
+        {
+            var result = await _roleManager.Roles.ToListAsync();
+            
+            if (result == null || result.Count() <= 0)
+            {
+                await CreateRole("Admin");
+                await CreateRole("User");
+                return true;
+            }
+            return false;
         }
     }
 }

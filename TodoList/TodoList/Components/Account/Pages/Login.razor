@@ -8,12 +8,15 @@
 @using TodoList.Model
 
 @inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> userManager
 @inject ILogger<Login> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 @inject UserWithRole LookupItem;
 
 <PageTitle>Log in</PageTitle>
+
+<p>@AuthCode</p>
 
 <div class="row">
     <div class="col-md-3">
@@ -61,6 +64,8 @@
     private string? ReturnUrl { get; set; }
 
     public UserWithRole lookupEmail = new UserWithRole();
+
+    private string AuthCode { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
