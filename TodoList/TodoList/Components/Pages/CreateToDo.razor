@@ -1,7 +1,118 @@
 ﻿@page "/CreateItem"
+@using TodoList.Code
+@using TodoList.Model
+
+@inject ToDoServices _service
+@inject IHttpContextAccessor HttpContextAccessor
 
 <h3>CreateToDo</h3>
 
+<AuthorizeView>
+    <Authorized Context="authContext">
+        <EditForm Model="@todoItem" OnValidSubmit="HandleValidSubmit">
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <InputTextArea id="description" class="form-control" @bind-Value="@InputItemName" />
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+
+        @if (todoItems == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in decryptedItems)
+                    {
+                        <tr>
+                            <td>@item</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </Authorized>
+</AuthorizeView>
+
 @code {
+    private List<ToDo>? todoItems = new();
+    private ToDo todoItem = new ToDo();
+    public string InputItemName;
+    public string CurrentUserId;
+    public string Email;
+
+    private List<string> items = new();
+    private List<string> decryptedItems = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentUserId = HttpContextAccessor.HttpContext.User.Claims.FirstOrDefault()?.Value ?? "0";
+        todoItems = await GetItems(CurrentUserId);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        todoItems = new();
+
+        AsymetriskHandler encryptionHandler = new AsymetriskHandler();
+        var encryptedItemName = encryptionHandler.Encrypt(InputItemName);
+
+        todoItem = new ToDo
+            {
+                UserId = CurrentUserId,
+                ItemName = encryptedItemName
+            };
+
+        await _service.CreateToDoItem(todoItem);
+        todoItems = await GetItems(CurrentUserId);
+        InputItemName = "";
+    }
+
+    private async Task DeleteItem(int itemId)
+    {
+        var success = await _service.DeleteItem(itemId);
+        if (success)
+        {
+            todoItems = await _service.GetItems(CurrentUserId);
+        }
+    }
+
+    private async Task<List<ToDo>> GetItems(string userID)
+    {
+        items.Clear();
+
+        var encryptedItems = await _service.GetItems(userID);
+        AsymetriskHandler encryptionHandler = new AsymetriskHandler();
+
+        foreach (var encryptedItem in encryptedItems)
+        {
+            items.Add(encryptedItem.ItemName);
+        }
+
+        decryptItems();
+        return encryptedItems;
+    }
+
+    private async Task<List<string>> decryptItems()
+    {
+        decryptedItems = new();
+        AsymetriskHandler encryptionHandler = new AsymetriskHandler();
+
+        foreach (var item in items)
+        {
+            var decryptedName = encryptionHandler.Decrypt(item);
+            decryptedItems.Add(decryptedName);
+        }
+
+        return decryptedItems;
+    }
 
 }

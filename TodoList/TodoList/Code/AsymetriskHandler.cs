@@ -5,49 +5,51 @@ namespace TodoList.Code
 {
     public class AsymetriskHandler
     {
-        private string _PrivateKey;
-        public string _publicKey;
+        private string _privateKey;
+        public string PublicKey;
+        private static readonly string KeyFilePath = "keys.xml";
 
         public AsymetriskHandler()
         {
-            if (File.Exists)
-            {
-                using (RSA rsa = RSA.read())
-                {
-                    RSAParameters privateKey = rsa.ExportParameters(true);
-                    _PrivateKey = rsa.ToXmlString(true);
+            string projectRootPath = AppDomain.CurrentDomain.BaseDirectory;
+            string fullPathToFile = Path.Combine(projectRootPath, KeyFilePath);
 
-                    RSAParameters publicKey = rsa.ExportParameters(false);
-                    _publicKey = rsa.ToXmlString(false);
+            if (File.Exists(fullPathToFile))
+            {
+                string xmlKeys = File.ReadAllText(fullPathToFile);
+                using (RSA rsa = RSA.Create())
+                {
+                    rsa.FromXmlString(xmlKeys);
+                    _privateKey = rsa.ToXmlString(true);
+                    PublicKey = rsa.ToXmlString(false);
                 }
             }
             else
             {
                 using (RSA rsa = RSA.Create())
                 {
-                    RSAParameters privateKey = rsa.ExportParameters(true);
-                    _PrivateKey = rsa.ToXmlString(true);
+                    // Generate new keys
+                    _privateKey = rsa.ToXmlString(true);
+                    PublicKey = rsa.ToXmlString(false);
 
-                    RSAParameters publicKey = rsa.ExportParameters(false);
-                    _publicKey = rsa.ToXmlString(false);
+                    // Save the private key to file for future use
+                    File.WriteAllText(fullPathToFile, _privateKey);
                 }
             }
-            
         }
 
-        public string Encrypt(string context) =>
-            Encrypter.encrypter(context, _publicKey);
+        public string Encrypt(string content) => Encrypter.encrypter(content, PublicKey);
 
-        public string Decrypt(string context)
+        public string Decrypt(string content)
         {
-            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+            using (RSA rsa = RSA.Create())
             {
-                rsa.FromXmlString(_PrivateKey);
+                rsa.FromXmlString(_privateKey);
 
-                byte[] ToByteArray = Convert.FromBase64String(context);
-                byte[] decrypted = rsa.Decrypt(ToByteArray,true);
+                byte[] dataToDecrypt = Convert.FromBase64String(content);
+                byte[] decryptedData = rsa.Decrypt(dataToDecrypt, RSAEncryptionPadding.OaepSHA256);
 
-                return Encoding.UTF8.GetString(decrypted);
+                return Encoding.UTF8.GetString(decryptedData);
             }
         }
     }

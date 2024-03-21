@@ -15,10 +15,8 @@ namespace TodoList.Code
             return false;
         }
 
-        public async Task<List<ToDo>> GetItems(int userId)
-        {
-            return await context.ToDos.Where(item => item.UserId == userId).ToListAsync();
-        }
+        public async Task<List<ToDo>> GetItems(string userId) => await context.ToDos.Where(item => item.UserId == userId).ToListAsync();
+        
 
         public async Task<bool> DeleteItem(int itemId)
         {
@@ -31,7 +29,7 @@ namespace TodoList.Code
             return false;
         }
 
-        public async Task<bool> DeleteAllItems(int userId)
+        public async Task<bool> DeleteAllItems(string userId)
         {
             var userItems = await context.ToDos.Where(item => item.UserId == userId).ToListAsync();
             foreach (var item in userItems)

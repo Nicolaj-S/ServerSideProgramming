@@ -23,18 +23,20 @@ namespace TodoList.Migrations.Todo
 
             modelBuilder.Entity("TodoList.Model.Cpr", b =>
                 {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Cpr1")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
                         .HasColumnName("CPR");
 
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("User")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("CPR", (string)null);
                 });
@@ -42,14 +44,20 @@ namespace TodoList.Migrations.Todo
             modelBuilder.Entity("TodoList.Model.ToDo", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ItemName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("ToDo", (string)null);
                 });

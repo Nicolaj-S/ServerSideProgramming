@@ -294,6 +294,7 @@ C:\Users\nicol\OneDrive\Dokumenter\GitHub\ServerSideProgramming\TodoList\TodoLis
 C:\Users\nicol\OneDrive\Dokumenter\GitHub\ServerSideProgramming\TodoList\TodoList\bin\Debug\net8.0\runtimes\linux-arm64\native\libSkiaSharp.so
 C:\Users\nicol\OneDrive\Dokumenter\GitHub\ServerSideProgramming\TodoList\TodoList\bin\Debug\net8.0\runtimes\linux-musl-x64\native\libSkiaSharp.so
 C:\Users\nicol\OneDrive\Dokumenter\GitHub\ServerSideProgramming\TodoList\TodoList\bin\Debug\net8.0\runtimes\linux-x64\native\libSkiaSharp.so
+C:\Users\nicol\OneDrive\Dokumenter\GitHub\ServerSideProgramming\TodoList\TodoList\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\nicol\OneDrive\Desktop\TodoList\ServerSideProgramming\TodoList\TodoList\obj\Debug\net8.0\TodoList.csproj.AssemblyReference.cache
 C:\Users\nicol\OneDrive\Desktop\TodoList\ServerSideProgramming\TodoList\TodoList\obj\Debug\net8.0\TodoList.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\nicol\OneDrive\Desktop\TodoList\ServerSideProgramming\TodoList\TodoList\obj\Debug\net8.0\TodoList.AssemblyInfoInputs.cache
@@ -449,4 +450,3 @@ C:\Users\nicol\OneDrive\Desktop\TodoList\ServerSideProgramming\TodoList\TodoList
 C:\Users\nicol\OneDrive\Desktop\TodoList\ServerSideProgramming\TodoList\TodoList\obj\Debug\net8.0\TodoList.pdb
 C:\Users\nicol\OneDrive\Desktop\TodoList\ServerSideProgramming\TodoList\TodoList\obj\Debug\net8.0\TodoList.genruntimeconfig.cache
 C:\Users\nicol\OneDrive\Desktop\TodoList\ServerSideProgramming\TodoList\TodoList\obj\Debug\net8.0\ref\TodoList.dll
-C:\Users\nicol\OneDrive\Dokumenter\GitHub\ServerSideProgramming\TodoList\TodoList\bin\Debug\net8.0\BCrypt.Net-Next.dll

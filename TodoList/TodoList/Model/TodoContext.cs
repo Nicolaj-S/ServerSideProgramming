@@ -39,8 +39,9 @@ public partial class TodoContext : DbContext
 
         modelBuilder.Entity<ToDo>(entity =>
         {
+            entity.HasKey(e => e.Id);
+
             entity
-                .HasNoKey()
                 .ToTable("ToDo");
         });
 

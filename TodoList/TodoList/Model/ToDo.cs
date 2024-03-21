@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace TodoList.Model;
 
 public partial class ToDo
 {
+    [Key]
     public int Id { get; set; }
 
-    public int UserId { get; set; }
+    public string UserId { get; set; }
 
     public string ItemName { get; set; } = null!;
 }
