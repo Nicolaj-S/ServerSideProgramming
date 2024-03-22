@@ -10,6 +10,10 @@
 @inject IServiceProvider _ServiceProvider
 @inject IHttpContextAccessor HttpContextAccessor
 
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@inject GlobalVar vars
+
 @inject UserWithRole context
 
 @inject CPRServices cprService
@@ -55,9 +59,11 @@
         var result = cprService.CheckEmailAsync(HttpContextAccessor.HttpContext.User.Identity.Name ?? "Not Found");
     }
 
-
     public async Task<bool> create()
     {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
         var id = HttpContextAccessor.HttpContext.User.Claims.FirstOrDefault()?.Value ?? "0";
         var Email = HttpContextAccessor.HttpContext.User.Identity.Name ?? "Not Found";
         var item = new Cpr()
@@ -72,6 +78,11 @@
         {
             FeedbackMessage = "CPR record created successfully.";
             CprNummer = "";
+            if (user.IsInRole("Admin"))
+            {
+                vars.ShowAdminMenu();
+            }
+            StateHasChanged();
             return exist = true;
         }
         else
@@ -80,6 +91,12 @@
             if (checkUserExist)
             {
                 FeedbackMessage = "Welcome back";
+                if (user.IsInRole("Admin"))
+                {
+                    vars.ShowAdminMenu();
+                }
+                
+                StateHasChanged();
                 return exist = true;
             }
 

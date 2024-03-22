@@ -23,13 +23,16 @@ builder.Services.AddScoped<UserWithRole>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<RoleHandler>();
+
 builder.Services.AddScoped<CPRServices>();
 builder.Services.AddScoped<ToDoServices>();
-builder.Services.AddScoped<HashContent>();
-builder.Services.AddScoped<ToDoServices>();
+
+
 builder.Services.AddScoped<symetriskHandler>();
 builder.Services.AddScoped<AsymetriskHandler>();
+builder.Services.AddScoped<HashContent>();
 
+builder.Services.AddScoped<GlobalVar>();
 
 builder.Services.AddAuthentication(options =>
     {

@@ -5,6 +5,7 @@
 @inject ToDoServices _service
 @inject IHttpContextAccessor HttpContextAccessor
 @inject AsymetriskHandler encryptionHandler
+@inject GlobalVar vars
 
 <h3>CreateToDo</h3>
 
@@ -15,7 +16,7 @@
                 <label for="description">Description:</label>
                 <InputTextArea id="description" class="form-control" @bind-Value="@InputItemName" />
             </div>
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary" disabled="@IsSubmitDisabled">Create</button>
         </EditForm>
 
         @if (todoItems == null)
@@ -28,7 +29,10 @@
                 <thead>
                     <tr>
                         <th>Description</th>
-                        <th>Action</th>
+                        @if (vars.showAdmin)
+                        {
+                            <th>Action</th>
+                        }
                     </tr>
                 </thead>
                 <tbody>
@@ -61,7 +65,7 @@
     private List<ToDo>? todoItems = new();
     private ToDo todoItem = new ToDo();
     public string InputItemName;
-    public string CurrentUserId;
+    private bool IsSubmitDisabled => string.IsNullOrWhiteSpace(InputItemName);
 
     private string CurrentId => HttpContextAccessor.HttpContext.User.Claims.FirstOrDefault()?.Value ?? "0";
 
