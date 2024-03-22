@@ -8,7 +8,7 @@
 @inject GlobalVar vars
 
 <h3>CreateToDo</h3>
-
+<h2>@Email</h2>
 <AuthorizeView>
     <Authorized Context="authContext">
         <EditForm Model="@todoItem" OnValidSubmit="HandleValidSubmit">
@@ -68,6 +68,7 @@
     private bool IsSubmitDisabled => string.IsNullOrWhiteSpace(InputItemName);
 
     private string CurrentId => HttpContextAccessor.HttpContext.User.Claims.FirstOrDefault()?.Value ?? "0";
+    private string Email => HttpContextAccessor.HttpContext.User.Identity.Name ?? "Not Found";
 
     protected override async Task OnInitializedAsync()
     {
